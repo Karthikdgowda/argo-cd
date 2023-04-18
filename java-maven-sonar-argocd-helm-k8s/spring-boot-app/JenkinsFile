@@ -6,7 +6,7 @@ pipeline {
   stages {
    stage('Checkout') {
       steps {
-        git credentialsId: 'karthik', url: 'https://Karthikdgowda@bitbucket.org/cloudzenix/argo-cd.git'
+        git branch: 'main', url: 'https://github.com/Karthikdgowda/argo-cd.git'
       }
     }
    stage('Build and Test') {
@@ -44,18 +44,16 @@ pipeline {
             GIT_USER_NAME = "Karthikdgowda"
         }
         steps {
-          withCredentials([string(credentialsId: 'bitbucket_key', variable: 'GIT_TOKEN')]) {
+          withCredentials([string(credentialsId: 'git_token', variable: 'GIT_TOKEN')]) {
                 sh '''
-                    git clone https://Karthikdgowda@bitbucket.org/cloudzenix/argo-cd.git
-                    cd ./argo-cd/ava-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests
-                    BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git config user.email "karthikd.gowda@cloudzenix.com"
                     git config user.name "Karthik CD"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push origin master 
-                    '''
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                '''
       }
     }
   }
