@@ -42,9 +42,10 @@ pipeline {
      environment {
             GIT_REPO_NAME = "argo-cd"
             GIT_USER_NAME = "Karthikdgowda"
+            GITHUB_TOKEN = "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"
         }
         steps {
-          withCredentials([gitUsernamePassword(credentialsId: 'github_token', gitToolName: 'git', variable: 'GIT_TOKEN')]) {
+          withCredentials([gittoken(credentialsId: 'git_token', gitToolName: 'git', variable: 'GIT_TOKEN')]) {
                 sh '''
                     git config user.email "karthikd.gowda@cloudzenix.com"
                     git config user.name "Karthik CD"
