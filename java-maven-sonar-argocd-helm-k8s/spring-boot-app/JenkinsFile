@@ -42,10 +42,10 @@ pipeline {
      environment {
             GIT_REPO_NAME = "argo-cd"
             GIT_USER_NAME = "Karthikdgowda"
-            GITHUB_TOKEN = "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"
+            GITHUB_TOKEN = credentials('git_token')
         }
         steps {
-          withCredentials([gittoken(credentialsId: 'git_token', gitToolName: 'git', variable: 'GIT_TOKEN')]) {
+          withCredentials([gittoken(credentialsId: 'github_token', gitToolName: 'git', variable: 'GIT_TOKEN')]) {
                 sh '''
                     git config user.email "karthikd.gowda@cloudzenix.com"
                     git config user.name "Karthik CD"
@@ -53,7 +53,7 @@ pipeline {
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add .
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push origin main
+                    git push https://${GIT_USER_NAME}:${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git HEAD:main
                 '''
       }
     }
