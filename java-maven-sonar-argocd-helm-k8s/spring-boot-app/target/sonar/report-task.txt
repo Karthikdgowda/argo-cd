@@ -2,5 +2,5 @@ projectKey=com.abhishek:spring-boot-demo
 serverUrl=https://sonarqube.t1.cloudzenix.net
 serverVersion=9.9.0.65466
 dashboardUrl=https://sonarqube.t1.cloudzenix.net/dashboard?id=com.abhishek%3Aspring-boot-demo
-ceTaskId=AYeZQqt5z46WvK9Tskmu
-ceTaskUrl=https://sonarqube.t1.cloudzenix.net/api/ce/task?id=AYeZQqt5z46WvK9Tskmu
+ceTaskId=AYeZSICOz46WvK9Tskmv
+ceTaskUrl=https://sonarqube.t1.cloudzenix.net/api/ce/task?id=AYeZSICOz46WvK9Tskmv
