@@ -38,11 +38,5 @@ pipeline {
         }
       }
     }
-   stage('Update Deployment File') {
-     environment {
-            GIT_REPO_NAME = "argo-cd"
-            GIT_USER_NAME = "Karthikdgowda"
-        }
-  }
  }
 }
