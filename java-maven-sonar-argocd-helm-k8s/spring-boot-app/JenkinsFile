@@ -38,5 +38,25 @@ pipeline {
         }
       }
     }
+   stage('Update Deployment File') {
+     environment {
+            GIT_REPO_NAME = "argo-cd"
+            GIT_USER_NAME = "Karthikdgowda"
+        }
+        steps {
+          git credentialsId: 'git_token', url: 'https://github.com/Karthikdgowda/argo-cd.git' {
+          //withCredentials([string(credentialsId: '', variable: 'GIT_TOKEN')]) {
+                sh '''
+                    git config user.email "karthikd.gowda@cloudzenix.com"
+                    git config user.name "Karthik CD"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push HEAD:main
+                '''
+      }
+    }
+  }
  }
 }
