@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: cloudzenix/argo-cd:55
+        image: cloudzenix/argo-cd:latest
         ports:
         - containerPort: 8080
